@@ -51,11 +51,33 @@ We will now begin the analysis of the hard drive that was found in the dognapper
 
 7. Open the “Data Sources” part of the left-hand tree (we’ll cover this tree more in the next section).  
     - **Question:** How many volumes does the disk image have?  
+        - 6
     - **Question:** What is the name of the unallocated space file in vol1?  
+        - Unalloc_3_0_1045876
     - **Question:** Right click on vol7 and choose “File System Details”.  What file system is in vol7?  
+        - NTFS
 
 8. In Windows, open “C:\case1” in a file explorer and observe its contents.  
-    - **Question:** What is the database called?
+    - **Question:** What is the database called?  
+        - autopsy.db  
     - **Question:** Roughly how big is the database (in megabytes)?  
+    - 225 mb
 
 ---
+
+## Lab 2  
+
+Keep the same case open that you created in the last section.  Let’s look at the data in the tree.
+
+1. **Question:** By extension, how many databases are there?  
+    - 59  
+2. **Question:** What is the size of the largest database?  
+    - 5242880
+3. **Question:** Are there any databases by MIME type yet?  
+    - No
+4. **Question:** What are the names of the files between 200MB and 1GB in size?  
+    - $BadClus:$bad  
+    - Winre.wim  
+    - Chrome.7z
+
+  ---
