@@ -1,6 +1,6 @@
 # Notes Page  
 
-## Section 4 UI Basicis  
+## Section 4: UI Basicis  
 
 ### Tree structure has 5 top-level node  
 
@@ -180,4 +180,113 @@ File Exporting, Viewing, etc
 
 ---  
 
-## Unit 5  
+## Unit 5: Analyzing Data Sources  
+
+### File Ingest Modules  
+
+- data goes down a pipeline of modules
+- Are run on every file in the data source
+  - Unless 'Ingest Filters ' are applied  
+- Many can run in parallel  
+- `Official` Ingest Modulels  
+  - Hash Lookup
+  - Keyword Search
+  - Embedded File Extraction
+  - Recent Activity
+  - Email
+
+### Data Source Ingest Modules
+
+- Not all data gets passed
+- Anaylzes specific data  
+
+### File Priotitization
+
+- The ingest Manager runs in the background and schedules the files for analysis  
+- Files go down the pipeline based onpriority:
+  - User Folders
+  - Program Files and other root folders
+  - Windows folder
+  - Unallocated space
+- If a 2nd images is added while the 1st is still being ingested, the two are done in parallel
+  - Files from image #2 could be highest priority  
+
+  Data Source-level Modules  
+
+  - Run on an entire data source  
+  - Better for more focused analysis techniques:  
+    - Query database for a set of files
+    - Analyze the set of files  
+    - Post results to blackboard  
+  - Versus File-level Modules:  
+    - Review every file to determine if it relevant
+    - Analyze the relevant files  
+    - Post results to blackboard  
+
+### Running Ingest Modules  
+
+- From the `Add Data Source` wizard  
+- Right-click on a data source  
+  - Modules may require configuration  
+  - Basic options may exist when enabling module:  
+  - More detailed confguration from `Global Settings` or `Tool -> Options`  
+
+### Unallocted Space  
+
+- You can choose to analyze the uallocated space files
+  - They go last  
+  
+### Ingest filters  
+
+- Allow you to only allow certain types of files down the pipelines.  
+  - Only .jpg and .png files
+  - Only files in Desktop folder
+- Useful for triage / preview situations.  
+- You can make them in the "Options" panel.  
+
+### Blackboard Artifacts
+
+- Ingest Moduels will save their results as Blackboard Artificats  
+- Artifacts have a type and one or more attributes.  
+- Example types:  
+  - Web Bookmark
+  - Hash Hit
+  - Encryption Detected
+- Autopsy comes with many predefined types and modules can make their own
+- Blackboard Attributes
+  - Each artifact has one or more attributes
+  - An attribute is a type and value pair
+  - Examples for a Web Bookmark artifact:  
+    - URL: http://www.autopsy.com
+    - DATETIME: april 1, 2020
+- Module can choose what attibutes they add to an artifact  
+
+### Viewing Artifacts  
+
+- Shwo in the tree under `Extracted Content`
+- Shown in the `Results` content viewer  
+- Included in reports  
+
+## Unit 6: Hash Lookup Module  
+
+## Unit 7: Various Small Modules (File Type, Exif, etc)  
+
+## Unit 8: Recent Activity  
+
+## Unit 9: Keyword Search
+
+## Unit 10: Correlation Engine
+
+## Unit 11: Android Analyzer  
+
+## Unit 12: Timeline Interface  
+
+## Unit 13: Image Gallery  
+
+## Unit 14: Communications Interface  
+
+## Unit 15: Tagging, Comenting, and Reporting  
+
+## Unit 16: 3rd Party Modules
+
+## Unit 17: Conclusion
