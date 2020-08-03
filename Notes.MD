@@ -269,6 +269,137 @@ File Exporting, Viewing, etc
 
 ## Unit 6: Hash Lookup Module  
 
+### Responsibilities  
+
+1. Calculates MD5 hash of files
+2. Stores hash in the case database
+3. Lookshash up in hash set  
+4. Marks file accordingly as:  
+
+- Known (NSRL) - Could be good or bad  
+- Known Bad / Notable
+
+### Use Cases  
+
+- To include MD5 hash values in your reports  
+- To make ingest faster and skip known files using the NSRL
+  - 18 min. vs 9 min. in a recent test
+- To hide known files from UI
+- To identify notable ('known bad') files  
+- To keep central repository up to date and correlate with past cases  
+
+### Hash Calculation Step
+
+Skips the Unallocated space files
+Calculates the MD5 of file content  
+Stores hash in the case database
+If file already has a hash, it does not calculate it again  
+
+### Hash Set Lookup Step  
+
+Looks up MD5 in ***ALL*** of the congured hash sets:  
+
+- Does not stop at first hit  
+
+Supports hash sets:  
+
+- NIST NSRL  
+  -Flagged as `KNOWN`  
+- EnCase
+- The Sleuth Kit SQLite format (.kdb files)
+- md5sum
+- Hashkeeper  
+
+### Kown Status of a File  
+
+Every file has a "Know Status":  
+
+- Notable / Known Bad
+- Kown  
+- Unknown - the default  
+
+### What can you configure  
+
+- The databases/hash sets to use
+- To always calculate hash value  
+
+### Where Do you see the results  
+
+ Known files  
+
+- May be ignored by other modules (it's the modules choice)  
+- Can be hidden from the 'Views' area  
+  - User option  
+  - Cefalult is to hide them  
+- Can be hidden in the directory hierarchy.  
+  - User option  
+  - Default is to not hide them  
+
+Notable hits:  
+
+- Shown in the "Hashset Hits" section of the tree
+  - Organized by hash set name  
+- A message in the ingest inbox
+
+### Analysis Shortcut  
+
+We know only a small number of notable files  
+There are typically more 'not yet known notable' files near a 'known notable file  
+A right-click can bring you directly there.  
+
+### Configure Hash Sets  
+
+Open Hash Lookup Module Settings:  
+
+- Tools -> Options menue  
+- Global Settings button from ingest panel
+  - New Hash Set  
+    - You can create a new local or remote hash set.  
+      - Local: Using Autopsy's SQLite database format  
+      - Remote: Using the Central Repository  
+    - Create them from the options panel  
+    - Specify the:  
+      - Location  
+      - Name  
+      - Type
+    - Add Hashes to Hash Set  
+      - Right click and choos "Add file to hash set"  
+        - only hash sets created in Autopsy  
+      - Copy and Paste
+        - Add a list of hash values to an existing set  
+        - Choose "add Hashes to Hash Set" from options panel  
+        - Copy and paste on or more MD5 Hashes  
+      - At End of Case  
+        - Some examiners maintain a has set of all previously tagged files  
+        - You can do this in two ways in Autopsy:  
+          1. Update a local hash set at the end of the case usin a report module  
+          2. Enable a the Central Repository.  It will automatically update when you tag a file as "Noteable"  
+  - Import Hash Set
+    - Most hash sets arn't sorted.
+      - Makes searching them very slow
+      - i.e.: 6,1,4,9,2,5,3,0  
+    - If you import a hash set that is not sorted, Autopsy will make an "index of it:  
+      - Separate file name with "-md5.idx" at end  
+      - i.e.: 0,1,2,3,4,5,6,7,8,9
+    - Hash sets can be stored:  
+      - Locally: Only the single computer has access  
+      - Remotely: on the central repository and all users have access to it.  
+    - The central repsitory allows you to stor information about where the has set came from  
+    - How to import a hash set
+      - Browse to a hash set ot the index (.idx file)  
+      - Pick destination (local or central repository)  
+      - Edit the display name  
+      - Verify type  
+      - Disable inbox messages if set has lots of false positives  
+      - If the database does not have an index, you will need to press the "index" button  
+      - Could take a while  
+    - Importing notes  
+      - After you've created an index, copy the md5.idx file for you co-worker so that they don't need to  
+        - or consider the remote hash set  
+      - Index for NSRL can be downloaded form sleuthkit.org  
+      - If you overwrite a Hash Set that has been added, re-index it to get the updates  
+        - i.e. a new version of a shared Hash Set  
+
 ## Unit 7: Various Small Modules (File Type, Exif, etc)  
 
 ## Unit 8: Recent Activity  
@@ -289,4 +420,4 @@ File Exporting, Viewing, etc
 
 ## Unit 16: 3rd Party Modules
 
-## Unit 17: Conclusion
+## Unit 17: Conclusion  

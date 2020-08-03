@@ -81,3 +81,61 @@ Keep the same case open that you created in the last section.  Let’s look at t
     - Chrome.7z
 
   ---
+
+## Lab 3  
+
+We are now going to begin analyzing the laptop.  We are starting off the case with some clues. Most notably, we have pictures that were sent with the ransom emails to Basis Technology
+
+1. Keep same case open from previous lab, or reopen the case ("case1").  
+
+2. Right click on device1_laptop.e01 image in tree and choose “Run Ingest Modules”  
+
+3. Disable all modules except the following (we will pre-load some for the next lap):  
+
+    - Hash Lookup
+    - File Type Identification
+    - Extension Mismatch Detector
+    - Embedded File Extractor
+    - Exif Parser
+    - Email Parser
+    - Correlation Engine
+
+4. Configure the Hash Lookup module with two hash sets:
+
+    - Import the NSRL File (NSRLComplete.txt-md5.idx) that you previously downloaded in Section 1.  
+
+      - You may need to unzip the file you downloaded.  
+      - You can use the default values (i.e. Type: Known).  
+
+    - Create a New Hash Set:
+      - Destination: Local
+      - Name: Ransom Case
+      - Hash Set Path: [Any folder on your computer]
+      - Type: Notable  
+
+    - Use "Add Hashes to Hash Set" button to copy and paste the following MD5 value into the "Ransom Case" hash set.  This is the hash of the ransom note.
+07c94320f4e41291f855d450f68c8c5b
+
+5. Start the Ingest Modules.
+
+6. Observe:
+
+    - Use Ingest Inbox as an indicator when ‘Known Bad’ hash hits are found.  
+
+    - Use “Go To Result” to go to tree area of hash hits.  
+
+    - View the hash hit.  
+
+    - **Question**: Let ingest get at least 15% through the drive.  How many total hits are found under the “Hashset Hits” results after running the Hash Lookup Ingest Module? **6**  
+
+    - **Question**: What are the filenames of the hash hits?  **RN.jpg**  **f_000239**  
+
+    - One of the hits is in a folder named “Pictures”.  Right click on the file to “View” there.  
+
+    - **Question**: How many total ".jpg" files are in the folder “Pictures” where the notable hash hit was found? **7**  
+
+    - While reviewing the images in that folder, it is noticed that “IMG_20191024_155744.jpg” shows health violations by bringing the dog into a restaurant.  We want to tag this as Notable:  
+
+      - Right click on it  
+
+      - Select “Add File Tag” and choose “Notable Item”  
